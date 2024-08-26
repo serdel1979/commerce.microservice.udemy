@@ -32,7 +32,7 @@ namespace Comercio.Autores.Aplicacion
                 {
                     Nombre = request.Nombre,
                     Apellido = request.Apellido,
-                    FechaNacimiento = request.FechaNacimiento
+                    FechaNacimiento = request.FechaNacimiento,
                 };
 
                 _context.AutoresLibros.Add(autor);
