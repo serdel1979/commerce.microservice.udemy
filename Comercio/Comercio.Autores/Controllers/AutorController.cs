@@ -1,4 +1,5 @@
 ﻿using Comercio.Autores.Aplicacion;
+using Comercio.Autores.Modelo;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,13 @@ namespace Comercio.Autores.Controllers
                 return BadRequest();
             }
         
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<List<AutorLibro>>> GetAutoresLibros()
+        {
+            return await _mediatr.Send(new Consulta.ListaAutor());
         }
 
 
