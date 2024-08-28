@@ -1,4 +1,5 @@
 using Comercio.Autores.Aplicacion;
+using Comercio.Autores.Mapeo;
 using Comercio.Autores.Persistencia;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
     .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Nuevo>());
 
 
+builder.Services.AddAutoMapper(typeof(MapeoObjeto));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

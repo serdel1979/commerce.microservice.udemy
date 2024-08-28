@@ -1,4 +1,6 @@
-﻿using Comercio.Autores.Modelo;
+﻿using AutoMapper;
+using Comercio.Autores.DTOs;
+using Comercio.Autores.Modelo;
 using Comercio.Autores.Persistencia;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,24 +10,27 @@ namespace Comercio.Autores.Aplicacion
     public class Consulta
     {
 
-        public class ListaAutor : IRequest<List<AutorLibro>>
+        public class ListaAutor : IRequest<List<AutorLibroDTO>>
         {
 
         }
 
 
-        public class Manejador : IRequestHandler<ListaAutor, List<AutorLibro>>
+        public class Manejador : IRequestHandler<ListaAutor, List<AutorLibroDTO>>
         {
             private readonly ApplicationDbContext _context;
+            private readonly IMapper _mapper;
 
-            public Manejador(ApplicationDbContext context)
+            public Manejador(ApplicationDbContext context, IMapper mapper)
             {
                 this._context = context;
+                this._mapper = mapper;
             }
 
-            public async Task<List<AutorLibro>> Handle(ListaAutor request, CancellationToken cancellationToken)
+            public async Task<List<AutorLibroDTO>> Handle(ListaAutor request, CancellationToken cancellationToken)
             {
-                return await _context.AutoresLibros.ToListAsync();
+                return  _mapper.Map<List<AutorLibroDTO>>(await _context.AutoresLibros.ToListAsync());
+
             }
         }
 
