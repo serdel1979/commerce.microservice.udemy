@@ -3,6 +3,7 @@ using Comercio.Autores.Modelo;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Comercio.Autores.Controllers
 {
@@ -41,6 +42,27 @@ namespace Comercio.Autores.Controllers
         {
             return await _mediatr.Send(new Consulta.ListaAutor());
         }
+
+        [HttpGet("Id:int")]
+        public async Task<ActionResult<AutorLibro>> GetAutor(int Id)
+        {
+
+            try
+            {
+                var autor = await _mediatr.Send(new ConsultaFiltro.AutorUnico { AutorId = Id });
+                if (autor == null)
+                {
+                    return NotFound();
+                }
+                return Ok(autor);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
 
 
     }
