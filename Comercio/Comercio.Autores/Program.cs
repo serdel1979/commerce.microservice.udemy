@@ -1,12 +1,18 @@
+using Comercio.Autores.Aplicacion;
 using Comercio.Autores.Persistencia;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+ builder.Services.AddControllers()
+    .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Nuevo>());
 
-builder.Services.AddControllers();
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
