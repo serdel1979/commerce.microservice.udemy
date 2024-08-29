@@ -1,4 +1,5 @@
 ﻿using Libros.Aplicacion;
+using Libros.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,27 @@ namespace Libros.Controllers
                 var data = await _mediatr.Send(new Consulta.Ejecuta());
                 return Ok(data);
             }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpGet("Id:int")]
+        public async Task<ActionResult<LibroMaterialDTO>> GetLibro(int Id)
+        {
+
+            try
+            {
+                var libro = await _mediatr.Send(new ConsultaParametrizada.Consulta{ Id = Id });
+                if (libro == null)
+                {
+                    return NotFound();
+                }
+                return Ok(libro);
+            }
+
             catch (Exception)
             {
                 return BadRequest();
