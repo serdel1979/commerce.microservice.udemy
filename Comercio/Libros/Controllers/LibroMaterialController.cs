@@ -34,7 +34,7 @@ namespace Libros.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetLibro()
+        public async Task<ActionResult> GetLibros()
         {
             try
             {
