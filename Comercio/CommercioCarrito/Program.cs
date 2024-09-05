@@ -1,3 +1,4 @@
+using AutoMapper;
 using CommercioCarrito.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
+builder.Services.AddAutoMapper(typeof(Mapper));
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {

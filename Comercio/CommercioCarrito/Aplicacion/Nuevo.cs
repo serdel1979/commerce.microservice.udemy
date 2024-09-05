@@ -41,7 +41,7 @@ namespace CommercioCarrito.Aplicacion
                 {
                     var detalleSesion = new CarritoSesionDetalle
                     {
-                        FechaCreacion = DateTime.Now,
+                        FechaCreacion = DateTime.UtcNow,
                         CarritoSesionId = id,
                         IdProducto = detalle,
                     };

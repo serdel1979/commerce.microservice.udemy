@@ -31,5 +31,20 @@ namespace CommercioCarrito.Controllers
         }
 
 
+        [HttpGet("id:int")]
+        public async Task<ActionResult> GetCar(int id)
+        {
+            try
+            {
+                var car = await _mediatr.Send(new Consulta.Ejecuta { CarritoId = id});
+                return Ok(car);
+             }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }
