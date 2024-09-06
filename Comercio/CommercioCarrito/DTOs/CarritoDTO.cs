@@ -7,6 +7,6 @@ namespace CommercioCarrito.DTOs
         public int Id { get; set; }
         public DateTime? FechaCreacion { get; set; }
 
-        public ICollection<CarritoDetalleDTO> ListaDetalle { get; set; }
+        public List<DetalleDTO> ListaDetalle { get; set; }
     }
 }

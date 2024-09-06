@@ -38,7 +38,21 @@ namespace CommercioCarrito.Controllers
             {
                 var car = await _mediatr.Send(new Consulta.Ejecuta { CarritoId = id});
                 return Ok(car);
-             }
+        }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllCar()
+        {
+            try
+            {
+                var cars = await _mediatr.Send(new Todos.Ejecuta());
+            return Ok(cars);
+        }
             catch (Exception)
             {
                 return BadRequest();

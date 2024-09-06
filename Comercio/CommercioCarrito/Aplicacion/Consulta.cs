@@ -31,7 +31,9 @@ namespace CommercioCarrito.Aplicacion
                 //var car = _mapper.Map<CarritoDTO>(await _context.CarritoSesions.Where(c=>c.Id ==  request.CarritoId).Include(d=>d.ListaDetalle).FirstOrDefaultAsync());
 
                                
-                var car = await _context.CarritoSesions.Where(c => c.Id == request.CarritoId).Include(d=>d.ListaDetalle).FirstOrDefaultAsync();
+                var car = await _context.CarritoSesions.Where(c => c.Id == request.CarritoId)
+                    .Include(d=>d.ListaDetalle)
+                    .FirstOrDefaultAsync();
 
                 var cardto = _mapper.Map<CarritoDTO>(car);
                 return cardto;

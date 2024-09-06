@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public DateTime? FechaCreacion { get; set; }
 
-        public ICollection<CarritoSesionDetalle> ListaDetalle { get; set; }
+        public List<CarritoSesionDetalle> ListaDetalle { get; set; }
     }
 }

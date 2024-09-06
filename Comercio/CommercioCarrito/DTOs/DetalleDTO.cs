@@ -2,7 +2,7 @@
 
 namespace CommercioCarrito.DTOs
 {
-    public class CarritoDetalleDTO
+    public class DetalleDTO
     {
         public int Id { get; set; }
         public DateTime? FechaCreacion { get; set; }
