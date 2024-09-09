@@ -33,23 +33,48 @@ namespace CommercioCarrito.Aplicacion
             }
             public async Task<CarritoDTO> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
-                //var car = _mapper.Map<CarritoDTO>(await _context.CarritoSesions.Where(c=>c.Id ==  request.CarritoId).Include(d=>d.ListaDetalle).FirstOrDefaultAsync());
-           
-                var car = await _context.CarritoSesions.Include(d=>d.ListaDetalle)
-                    .FirstOrDefaultAsync(c => c.Id == request.CarritoId);
-
-                var detalleCarrito = await _context.CarritoSesionDetalles
-                    .Where(x => x.Id == request.CarritoId).ToListAsync();
-
-                foreach(var libro in detalleCarrito)
+                try
                 {
-                    await _libroService.GetLibro(libro.Id);
 
+                    var car = await _context.CarritoSesions.Include(d=>d.ListaDetalle)
+                        .FirstOrDefaultAsync(c => c.Id == request.CarritoId);
+
+                    var detalleCarrito = car.ListaDetalle;
+
+
+                    var listaCarritoDto = new List<DetalleDTO>();
+
+                    foreach(var libro in detalleCarrito)
+                    {
+                        var resp =  await _libroService.GetLibro(libro.IdProducto);
+                        if (resp.Resultado)
+                        {
+                            var objetoLibro = resp.Libro;
+                            var carritoDetalle = new DetalleDTO
+                            {
+                                Producto = objetoLibro.Titulo,
+                                FechaCreacion = objetoLibro.FechaPublicacion,
+                                Id = objetoLibro.Id,
+                            };
+                            listaCarritoDto.Add(carritoDetalle);
+                        }
+                    }
+
+                    var carritoDto = new CarritoDTO
+                    {
+                        Id = car.Id,
+                        FechaCreacion = car.FechaCreacion,
+                        ListaDetalle = listaCarritoDto
+                    };
+
+                    return carritoDto;
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
 
-
-                var cardto = _mapper.Map<CarritoDTO>(car);
-                return cardto;
             }
         }
 

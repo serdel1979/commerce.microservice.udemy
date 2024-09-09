@@ -19,7 +19,7 @@ namespace CommercioCarrito.RemoteInterface
             try
             {
                 var cliente = _httpClient.CreateClient("Libros");
-                var response = await  cliente.GetAsync($"api/LibroMaterial/{Id}");
+                var response = await  cliente.GetAsync($"api/LibroMaterial/Id:int?Id={Id}");
                 if (response.IsSuccessStatusCode)
                 {
                     var contenido = await response.Content.ReadAsStringAsync();
